@@ -1,0 +1,5 @@
+wfplug-gpu (0.1) bookworm; urgency=medium
+
+  * Initial release.
+
+ -- Simon Long <simon@raspberrypi.com>  Thu, 23 Jan 2025 10:50:54 +0000
