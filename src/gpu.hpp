@@ -31,13 +31,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <widget.hpp>
 #include <gtkmm/button.h>
 
-#include "lxutils.h"
-
 extern "C" {
+#include "lxutils.h"
 #include "gpu.h"
-extern void gpu_init (GPUPlugin *g);
-extern void gpu_update_display (GPUPlugin *g);
-extern void gpu_destructor (gpointer user_data);
 }
 
 class WayfireGPU : public WayfireWidget

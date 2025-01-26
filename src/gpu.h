@@ -40,5 +40,9 @@ typedef struct
     unsigned long long last_timestamp;
 } GPUPlugin;
 
+extern void gpu_init (GPUPlugin *g);
+extern void gpu_update_display (GPUPlugin *g);
+extern void gpu_destructor (gpointer user_data);
+
 /* End of file */
 /*----------------------------------------------------------------------------*/
