@@ -25,6 +25,10 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ============================================================================*/
 
+/*----------------------------------------------------------------------------*/
+/* Typedefs and macros */
+/*----------------------------------------------------------------------------*/
+
 typedef struct
 {
     int icon_size;                          /* Variables used under wf-panel */
@@ -39,6 +43,10 @@ typedef struct
     unsigned long long last_val[5];
     unsigned long long last_timestamp;
 } GPUPlugin;
+
+/*----------------------------------------------------------------------------*/
+/* Prototypes                                                                 */
+/*----------------------------------------------------------------------------*/
 
 extern void gpu_init (GPUPlugin *g);
 extern void gpu_update_display (GPUPlugin *g);
