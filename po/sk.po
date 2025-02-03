@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-23 10:39+0000\n"
-"PO-Revision-Date: 2020-11-28 22:06+0100\n"
+"POT-Creation-Date: 2025-02-03 11:09+0000\n"
+"PO-Revision-Date: 2025-01-31 22:27+0100\n"
 "Last-Translator: Jose Riha <jose1711@gmail.com>\n"
 "Language-Team: Slovak\n"
 "Language: sk\n"
@@ -16,20 +16,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 3.5\n"
 
-#: ../src/gpu.cpp:36
+#: ../src/gpu.cpp:37
 msgid "Show usage as percentage"
 msgstr ""
 
-#: ../src/gpu.cpp:37
+#: ../src/gpu.cpp:38
 msgid "Foreground colour"
 msgstr "Farba popredia"
 
-#: ../src/gpu.cpp:38
+#: ../src/gpu.cpp:39
 msgid "Background colour"
 msgstr "Farba pozadia"
 
-#: ../src/gpu.cpp:42
+#: ../src/gpu.cpp:43
 msgid "GPU"
 msgstr ""
+
+#, c-format
