@@ -33,7 +33,6 @@ typedef struct
 {
     int icon_size;                          /* Variables used under wf-panel */
     gboolean bottom;
-    GtkGesture *gesture;
     GtkWidget *plugin;                      /* Back pointer to the widget */
     PluginGraph graph;
     GdkRGBA foreground_colour;              /* Foreground colour for drawing area */

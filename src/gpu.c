@@ -150,9 +150,6 @@ void gpu_init (GPUPlugin *g)
 
     gpu_update_display (g);
 
-    /* Set up long press */
-    g->gesture = add_long_press (g->plugin, NULL, NULL);
-
     /* Connect a timer to refresh the statistics. */
     g->timer = g_timeout_add (1500, (GSourceFunc) gpu_update, (gpointer) g);
 
@@ -165,7 +162,6 @@ void gpu_destructor (gpointer user_data)
     GPUPlugin *g = (GPUPlugin *) user_data;
     graph_free (&(g->graph));
     if (g->timer) g_source_remove (g->timer);
-    if (g->gesture) g_object_unref (g->gesture);
     g_free (g);
 }
 
