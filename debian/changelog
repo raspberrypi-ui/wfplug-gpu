@@ -1,3 +1,9 @@
+wfplug-gpu (0.2) bookworm; urgency=medium
+
+  * Add compatibility with 6.8 kernel 
+
+ -- Simon Long <simon@raspberrypi.com>  Fri, 21 Feb 2025 11:54:44 +0000
+
 wfplug-gpu (0.1) bookworm; urgency=medium
 
   * Initial release.

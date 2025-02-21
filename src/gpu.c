@@ -43,12 +43,77 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /* Prototypes                                                                 */
 /*----------------------------------------------------------------------------*/
 
+static float get_gpu_usage_new (GPUPlugin *g);
 static float get_gpu_usage (GPUPlugin *g);
 static gboolean gpu_update (GPUPlugin *g);
 
 /*----------------------------------------------------------------------------*/
 /* Function definitions                                                       */
 /*----------------------------------------------------------------------------*/
+
+static float get_gpu_usage_new (GPUPlugin *g)
+{
+    char *buf = NULL;
+    char type[16];
+    size_t res = 0;
+    unsigned long jobs;
+    unsigned long long timestamp, elapsed = 0, runtime;
+    float max, load[5];
+    int i;
+
+    // open the stats file
+    FILE *fp = fopen ("/sys/devices/platform/axi/1002000000.v3d/gpu_stats", "rb");
+    if (fp == NULL) return -1.0;
+
+    // read the stats file a line at a time
+    while (getline (&buf, &res, fp) > 0)
+    {
+        if (sscanf (buf, "%s %lld %ld %lld", type, &timestamp, &jobs, &runtime) == 4)
+        {
+            // use the timestamp line to calculate time since last measurement
+            if (g->last_timestamp < timestamp)
+            {
+                elapsed = timestamp - g->last_timestamp;
+                g->last_timestamp = timestamp;
+            }
+
+            // depending on which queue is in the line, calculate the percentage of time used since last measurement
+            // store the current time value for the next calculation
+            i = -1;
+            if (!strncmp (type, "bin", 7)) i = 0;
+            if (!strncmp (type, "render", 7)) i = 1;
+            if (!strncmp (type, "tfu", 7)) i = 2;
+            if (!strncmp (type, "csd", 7)) i = 3;
+            if (!strncmp (type, "cache_clean", 7)) i = 4;
+            if (i != -1)
+            {
+                if (g->last_val[i] == 0) load[i] = 0.0;
+                else
+                {
+                    if (elapsed)
+                    {
+                        load[i] = runtime;
+                        load[i] -= g->last_val[i];
+                        load[i] /= elapsed;
+                    }
+                }
+                g->last_val[i] = runtime;
+            }
+        }
+    }
+
+    // list is now filled with calculated loadings for each queue for each PID
+    free (buf);
+    fclose (fp);
+
+    // calculate the max of the five queue values and store in the task array
+    max = 0.0;
+    for (i = 0; i < 5; i++)
+        if (load[i] > max)
+            max = load[i];
+
+    return max;
+}
 
 static float get_gpu_usage (GPUPlugin *g)
 {
@@ -123,7 +188,8 @@ static gboolean gpu_update (GPUPlugin *g)
 
     if (g_source_is_destroyed (g_main_current_source ())) return FALSE;
 
-    gpu_val = get_gpu_usage (g);
+    gpu_val = get_gpu_usage_new (g);
+    if (gpu_val < 0.0) gpu_val = get_gpu_usage (g);
     if (g->show_percentage) sprintf (buffer, "G:%3.0f", gpu_val * 100.0);
     else buffer[0] = 0;
     graph_new_point (&(g->graph), gpu_val, 0, buffer);
