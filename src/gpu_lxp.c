@@ -45,7 +45,7 @@ static GtkWidget *gpu_constructor (LXPanel *panel, config_setting_t *settings)
     /* Allocate top level widget and set into plugin widget pointer. */
     g->panel = panel;
     g->settings = settings;
-    g->plugin = gtk_event_box_new ();
+    g->plugin = gtk_button_new ();
     lxpanel_plugin_set_data (g->plugin, g, gpu_destructor);
 
     /* Read config */

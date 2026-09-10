@@ -1,3 +1,9 @@
+pplug-gpu (1.10) trixie; urgency=medium
+
+  * Fix menu offset
+
+ -- Simon Long <simon@raspberrypi.com>  Thu, 10 Sep 2026 16:19:49 +0100
+
 pplug-gpu (1.9) trixie; urgency=medium
 
   * Version bump for build
